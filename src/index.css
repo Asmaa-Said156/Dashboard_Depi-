@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+/* index.css */
+.shadow-gold {
+  @apply shadow-[0_8px_12px_-4px_rgba(255,215,0,0.3),0_2px_2px_-2px_rgba(255,215,0,0.15)];
+}
