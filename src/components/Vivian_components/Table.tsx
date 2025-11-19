@@ -1,13 +1,12 @@
 interface TableProps {
   header: string[];
-  row: { [key: string]: any }[];
-  footer?: { [key: string]: any }[];
+  row: { [key: string]: React.ReactNode }[];
+  footer?: { [key: string]: React.ReactNode }[];
 }
-
 export default function Table({ header, row, footer }: TableProps) {
   return (
-    <div className="overflow-x-auto rounded-lg shadow-md border ">
-      <table className="min-w-full divide-y ">
+    <div className="overflow-x-auto rounded-lg shadow-md border">
+      <table className="min-w-full divide-y max-h-full">
         {/* Table Head */}
         <thead className="">
           <tr>
