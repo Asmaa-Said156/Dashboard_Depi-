@@ -7,10 +7,10 @@ export default function Requests() {
   return (
     <>
       <div className="flex   items-center gap-2 justify-center p-3 " >
-        <div className="">
+        <div className="w-64">
           <ButtonGroupInput />
         </div>
-        <div className=""><ComboBox ></ComboBox></div>
+        <div className=""><ComboBox  /></div>
 
       </div>
     </>

@@ -24,10 +24,11 @@ type ComboBoxItem = { value: string; label: string }
 type ComboBoxProps = {
   items?: ComboBoxItem[]
   placeholder?: string
-  onChange?: (value: string) => void
+  onChange?: (value: string) => void 
+  classname ? : string 
 }
 
-export function ComboBox({ items = [], placeholder = "Select item...", onChange }: ComboBoxProps) {
+export function ComboBox({ items = [], placeholder = "Select item...", onChange , classname }: ComboBoxProps) {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState("")
 
@@ -45,7 +46,7 @@ export function ComboBox({ items = [], placeholder = "Select item...", onChange 
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[300px] justify-between"
+          className={` justify-between ${classname}`}
         >
           {value ? items.find((item) => item.value === value)?.label : placeholder}
           <ChevronsUpDown className="opacity-50" />
