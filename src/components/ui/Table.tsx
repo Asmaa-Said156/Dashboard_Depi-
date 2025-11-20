@@ -5,8 +5,8 @@ interface TableProps {
 }
 export default function Table({ header, row, footer }: TableProps) {
   return (
-    <div className="overflow-x-auto rounded-lg shadow-md border">
-      <table className="min-w-full divide-y max-h-full">
+    <div className="overflow-x-auto rounded-lg shadow-md border transition-all duration-300">
+      <table className="min-w-full divide-y max-h-[500px]">
         {/* Table Head */}
         <thead className="">
           <tr>
@@ -14,7 +14,7 @@ export default function Table({ header, row, footer }: TableProps) {
               <th
                 key={index}
                 scope="col"
-                className="lg:px-6 px-2 py-3 text-center text-[10px] lg:text-sm font-semibold  uppercase tracking-wider"
+                className="lg:px-6 px-2 py-3 text-center text-[10px] lg:text-sm font-semibold  uppercase tracking-wider transition-all duration-300"
               >
                 {col}
               </th>
@@ -30,7 +30,7 @@ export default function Table({ header, row, footer }: TableProps) {
               className="transition-colors duration-150"
             >
               {header.map((col, colIndex) => (
-                <td key={colIndex} className="lg:px-6 px-2 py-3 text-center text-[10px] lg:text-sm ">
+                <td key={colIndex} className="lg:px-6 px-2 py-3 text-center text-[10px] lg:text-sm transition-all duration-300 ">
                   {r[col]}
                 </td>
               ))}
@@ -46,7 +46,7 @@ export default function Table({ header, row, footer }: TableProps) {
                 {header.map((col, colIndex) => (
                   <td
                     key={colIndex}
-                    className="lg:px-6 px-2 py-3 text-center text-[10px] lg:text-sm font-medium "
+                    className="lg:px-6 px-2 py-3 text-center text-[10px] lg:text-sm font-medium transition-all duration-300 "
                   >
                     {f[col]}
                   </td>
