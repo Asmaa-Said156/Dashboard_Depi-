@@ -1,9 +1,9 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { ComboBox } from "@/components/Vivian_components/combobox";
+import { ComboBox } from "@/components/ui/combobox";
 import { Input } from "@/components/ui/input";
-import Table from "@/components/Vivian_components/Table";
+import Table from "@/components/ui/Table";
 import { Button } from "@/components/ui/button";
 import { Delete, Edit } from "lucide-react";
 
@@ -17,7 +17,7 @@ type TableRow = {
 const MAX_PEOPLE = 50;
 
 export default function TablesPage() {
-  
+
   const categories = [
     { value: "vip", label: "VIP Table" },
     { value: "a", label: "Class A Table" },
@@ -119,7 +119,7 @@ export default function TablesPage() {
       {/* Inputs */}
       <div className="flex flex-col md:flex-row gap-3 items-center">
         <ComboBox items={categories} value={selectedClass} onChange={handleComboChange} placeholder="اختر فئة..." />
-        
+
         <Input type="text" placeholder="اسم الطاولة" value={name} onChange={(e) => setName(e.target.value)} onKeyDown={handleKeyPress} />
 
         <Input type="number" min={1} max={MAX_PEOPLE} placeholder={`أقصى عدد أفراد (${MAX_PEOPLE})`} value={quantity} onChange={(e) => setQuantity(e.target.value)} onKeyDown={handleKeyPress} />

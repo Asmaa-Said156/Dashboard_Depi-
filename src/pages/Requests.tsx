@@ -1,9 +1,18 @@
 // import React from 'react'
 
+import { ButtonGroupInput } from "@/components/Omar_components/SearchBar";
+import { ComboBox } from "@/components/ui/combobox";
+
 export default function Requests() {
   return (
-    <div>
-      <h1>Requests</h1>
-    </div>
+    <>
+      <div className="flex   items-center gap-2 justify-center p-3 " >
+        <div className="">
+          <ButtonGroupInput />
+        </div>
+        <div className=""><ComboBox ></ComboBox></div>
+
+      </div>
+    </>
   )
 }

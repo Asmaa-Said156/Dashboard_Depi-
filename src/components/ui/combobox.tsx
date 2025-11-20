@@ -45,7 +45,7 @@ export function ComboBox({ items = [], placeholder = "Select item...", onChange 
           variant="outline"
           role="combobox"
           aria-expanded={open}
-          className="w-[200px] justify-between"
+          className="w-[300px] justify-between"
         >
           {value ? items.find((item) => item.value === value)?.label : placeholder}
           <ChevronsUpDown className="opacity-50" />
@@ -53,8 +53,8 @@ export function ComboBox({ items = [], placeholder = "Select item...", onChange 
       </PopoverTrigger>
 
       <PopoverContent className="w-[200px] p-0">
-        <Command>
-          <CommandInput placeholder="Search..." className="h-9" />
+        <Command className="w-full">
+          <CommandInput placeholder="Search..." className="h-9 " />
           <CommandList>
             <CommandEmpty>No items found.</CommandEmpty>
             <CommandGroup>
