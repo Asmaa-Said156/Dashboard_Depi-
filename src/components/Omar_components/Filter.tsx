@@ -19,7 +19,7 @@ export default function Filter({
   items = [],
 }: FilterProps) {
   return (
-    <div className="flex flex-col lg:flex-row items-center gap-2 justify-center mb-2 lg:p-3">
+    <div className="flex flex-col lg:flex-row items-center gap-4 justify-center ">
       <Input
         className="w-[300px] lg:w-[400px] transition-all duration-300"
         placeholder="Search..."
