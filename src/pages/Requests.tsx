@@ -1,8 +1,8 @@
 // import React from 'react'
 
 
-import { ComboBox } from "@/components/ui/combobox";
-import { Input } from "@/components/ui/input";
+import Filter from "@/components/Omar_components/Filter";
+
 
 
 import Table from "@/components/ui/Table";
@@ -62,13 +62,12 @@ const filteredRows = row
 
   return (
     <div className="">
-      <header className="flex flex-col lg:flex-row  items-center gap-2 justify-center mb-2 lg:p-3 " >
 
-        <Input className=" w-[300px] lg:w-[400px] transition-all duration-300 "onChange={(e) => setSearch(e.target.value)} placeholder="Search.."  />
-        <ComboBox classname="w-[200px] transition-all duration-300 " placeholder="filter-by" onChange={(value) => { setValue(value) }} items={options} />
 
-      </header>
+      
 
+
+      <Filter items={options} onChangeCombo={(value) => { setValue(value) }} onChangeInput={(e) => setSearch(e.target.value)} />
 
       <div className="max-h-[calc(100vh-130px)] overflow-y-auto">
         <Table header={header} row={filteredRows} />
