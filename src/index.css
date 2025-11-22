@@ -1,6 +1,33 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-/* index.css */
-.shadow-gold {
-  @apply shadow-[0_8px_12px_-4px_rgba(255,215,0,0.3),0_2px_2px_-2px_rgba(255,215,0,0.15)];
+@layer base {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ffffff;
+    --card: #111111;
+    --card-foreground: #ffffff;
+    --border: #333333;
+    --primary: #f97316;
+    --muted-foreground: #9ca3af;
+  }
+
+  .dark {
+    --background: #0a0a0a;
+    --foreground: #ffffff;
+    --card: #111111;
+    --border: #333333;
+    --primary: #f97316;
+  }
+
+  /* لو عايز Light Mode بعد كده */
+  .light {
+    --background: #ffffff;
+    --foreground: #0f172a;
+    --card: #f8fafc;
+    --border: #e2e8f0;
+    --primary: #ea580c;
+    --muted-foreground: #64748b;
+  }
 }

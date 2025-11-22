@@ -5,7 +5,6 @@ import StatisticsPage from './pages/StatisticsPage';
 import Log from './pages/Log';
 import Tables from './pages/Tables';
 import Requests from './pages/Requests';
-import Menu from './pages/Menu';
 
 
 const router = createBrowserRouter([
@@ -30,10 +29,7 @@ const router = createBrowserRouter([
           path: '/Requests'
           , element: <Requests />
         },
-        {
-          path: '/Menu'
-          , element: <Menu />
-        },
+        
       ]
   }
 ])

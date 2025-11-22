@@ -13,7 +13,6 @@ export default function MainLayout() {
         { label: "السجل", path: "/Log" },
         { label: "الجداول", path: "/Tables" },
         { label: "الطلبات", path: "/Requests" },
-        { label: "القائمة", path: "/Menu" },
     ];
     const navigate = useNavigate();
     return (
