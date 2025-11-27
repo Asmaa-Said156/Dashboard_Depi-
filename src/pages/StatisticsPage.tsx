@@ -51,57 +51,37 @@ const StatisticsPage: React.FC = () => {
         label: 'Reservations',
         data: [68,92,105,88,120,135,112,98,145,160,142,158,170,165,180,195,188,210,225,198,215,240,235,248,260,275,268,282,290,284],
         borderColor: '#f97316',
-        backgroundColor: 'rgba(249, 115, 22, 0.15)',
-        borderWidth: 4,
+        backgroundColor: 'rgba(249, 115, 22, 0.1)',
+        borderWidth: 3,
         tension: 0.4,
         fill: true,
-        pointBackgroundColor: '#f97316',
-        pointRadius: 5,
-        pointHoverRadius: 9,
       },
     ],
   };
 
   const tableData = {
     labels: ['2-Seater', '4-Seater', '6-Seater', 'VIP Booth', 'Terrace'],
-    datasets: [{
-      data: [320, 580, 410, 120, 210],
-      backgroundColor: ['#f97316', '#fb923c', '#fdba74', '#fed7aa', '#ffedd5'],
-      borderWidth: 6,
-      borderColor: '#0f172a',
-      hoverOffset: 20,
-    }],
+    datasets: [{ data: [320,580,410,120,210], backgroundColor: ['#f97316','#fb923c','#fdba74','#fed7aa','#ffedd5'] }],
   };
 
   const menuData = {
     labels: ['Signature Steak','Lobster Risotto','Truffle Pasta','Tiramisu','Champagne','Cocktails','Wagyu'],
-    datasets: [{
-      label: 'Orders',
-      data: [485,412,368,355,340,298,280],
-      backgroundColor: '#f97316',
-      borderRadius: 12,
-      barThickness: 22,
-    }],
+    datasets: [{ label: 'Orders', data: [485,412,368,355,340,298,280], backgroundColor: '#f97316', borderRadius: 8 }],
   };
 
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
-      <motion.div
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="mb-10"
-      >
-        <h1 className="text-5xl font-extrabold bg-gradient-to-r from-orange-500 to-amber-500 bg-clip-text text-transparent">
-          Main Dashboard
-        </h1>
-        <p className="text-muted-foreground mt-2 text-lg">Restaurant Statistics • November 2025</p>
+      {/* Header */}
+      <motion.div initial={{ y: -40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="mb-8">
+        <h1 className="text-4xl font-bold">Main Dashboard</h1>
+        <p className="text-muted-foreground mt-2">Restaurant Statistics • November 2025</p>
       </motion.div>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5 mb-10">
+      {/* Top Small Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
         {[
           { icon: "📊", label: "Total Reservations", value: "2,847" },
-          { icon: "💰", label: "Revenue", Commitment: "$284.7K" },
+          { icon: "💰", label: "Revenue", value: "$284.7K" },
           { icon: "📈", label: "Growth", value: "+32%" },
           { icon: "👥", label: "People Booked", value: "7,682" },
           { icon: "🪑", label: "Tables Used", value: "1,640" },
@@ -109,165 +89,72 @@ const StatisticsPage: React.FC = () => {
         ].map((item, i) => (
           <motion.div
             key={i}
-            initial={{ scale: 0.8, opacity: 0 }}
+            initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: i * 0.1, type: "spring", stiffness: 200 }}
-            whileHover={{ y: -10, scale: 1.05 }}
-            className="bg-card/90 backdrop-blur-xl border border-border rounded-3xl p-6 text-center shadow-lg hover:shadow-orange-500/20 transition-all"
+            transition={{ delay: i * 0.1 }}
+            className="bg-card/80 backdrop-blur-xl border border-border rounded-2xl p-5 text-center hover:border-primary/50 transition-all duration-300"
           >
-            <div className="text-4xl mb-2">{item.icon}</div>
+            <div className="text-3xl mb-2">{item.icon}</div>
             <p className="text-xs text-muted-foreground">{item.label}</p>
-            <p className="text-2xl font-bold text-primary mt-1">{item.value}</p>
+            <p className="text-xl font-bold text-primary">{item.value}</p>
           </motion.div>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="space-y-8">
+      {/* Main Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left Column */}
+        <div className="space-y-6">
           {[
-            { label: "Total Reservations", value: counts.reservations.toLocaleString(), change: "+24%" },
-            { label: "People Booked", value: counts.people.toLocaleString(), change: "+19%" },
+            { label: "Total Reservations", value: counts.reservations, change: "+24%" },
+            { label: "People Booked", value: counts.people, change: "+19%" },
             { label: "Revenue This Month", value: `$${counts.revenue.toLocaleString()}`, change: "+32%", highlight: true },
             { label: "Occupancy Rate", value: `${counts.occupancy}%`, change: "Peak" },
           ].map((stat, i) => (
             <motion.div
               key={i}
-              initial={{ x: -100, opacity: 0 }}
+              initial={{ x: -50, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: i * 0.15, type: "spring" }}
-              whileHover={{ scale: 1.02 }}
-              className={`relative bg-card/90 backdrop-blur-xl border ${stat.highlight ? 'border-orange-500 shadow-orange-500/20' : 'border-border'} rounded-3xl p-8 shadow-2xl overflow-hidden`}
+              transition={{ delay: i * 0.15 }}
+              className={`bg-card/80 backdrop-blur-xl border ${stat.highlight ? 'border-primary' : 'border-border'} rounded-3xl p-8 hover:border-primary transition-all duration-300`}
             >
-              {stat.highlight && (
-                <motion.div
-                  animate={{ opacity: [0.2, 0.5, 0.2] }}
-                  transition={{ duration: 3, repeat: Infinity }}
-                  className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent"
-                />
-              )}
               <p className="text-muted-foreground text-sm">{stat.label}</p>
-              <motion.p
-                key={stat.value}
-                initial={{ scale: 0.9 }}
-                animate={{ scale: 1 }}
-                className={`text-5xl font-extrabold mt-3 ${stat.highlight ? 'text-orange-500' : ''}`}
-              >
+              <p className={`text-5xl font-bold mt-3 ${stat.highlight ? 'text-primary' : 'text-foreground'}`}>
                 {stat.value}
-              </motion.p>
-              <p className="text-green-400 text-sm mt-4 flex items-center gap-1">
-                <span>↑</span> {stat.change}
               </p>
+              <p className="text-green-400 text-sm mt-4">↑ {stat.change}</p>
             </motion.div>
           ))}
 
-          <motion.div
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.8, duration: 0.8 }}
-            className="relative bg-card/90 backdrop-blur-xl border border-border rounded-3xl p-12 shadow-2xl overflow-hidden"
-          >
-            <div className="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-transparent pointer-events-none" />
-
-            <motion.h3
-              initial={{ y: -30, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ delay: 1 }}
-              className="text-2xl font-bold mb-8 text-center text-primary"
-            >
-              Table Types Distribution
-            </motion.h3>
-
-            <div className="relative mx-auto w-full max-w-lg">
-              <motion.div
-                initial={{ scale: 0.8, rotate: -360 }}
-                animate={{ scale: 1, rotate: 0 }}
-                transition={{ duration: 1.8, ease: "easeOut", delay: 1.1 }}
-                className="relative"
-              >
-                <Doughnut
-                  data={tableData}
-                  options={{
-                    cutout: '60%',
-                    plugins: {
-                      legend: {
-                        position: 'bottom' as const,
-                        labels: {
-                          padding: 30,
-                          color: '#cbd5e1',
-                          font: { size: 14, weight: '600' },
-                          usePointStyle: true,
-                          pointStyle: 'rectRounded',
-                        },
-                      },
-                      
-                    },
-                    animation: { duration: 3000, easing: 'easeOutQuart' },
-                  }}
-                />
-
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <motion.div
-                    initial={{ scale: 0, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: 2.2, type: "spring", stiffness: 150, damping: 15 }}
-                    className="text-center"
-                  >
-                    <div className="text-7xl md:text-8xl font-extrabold text-orange-500 tracking-tight drop-shadow-2xl" >
-                      1,640
-                    </div>
-                    <div className="text-lg md:text-xl font-semibold text-gray-400 mt-2 tracking-wider">
-                      Tables Used
-                    </div>
-                  </motion.div>
-                </div>
-
-                <motion.div
-                  animate={{ scale: [1, 1.15, 1] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute inset-0 -z-10 rounded-full border-4 border-orange-500/20 blur-xl"
-                />
-              </motion.div>
-            </div>
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}
+            className="bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8">
+            <h3 className="text-xl font-bold mb-6 text-primary">Table Types Distribution</h3>
+            <Doughnut data={tableData} options={{ cutout: '70%', plugins: { legend: { labels: { color: 'rgb(156 163 175)' } } } }} />
           </motion.div>
         </div>
 
-        <motion.div
-          initial={{ y: 80, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          className="bg-card/90 backdrop-blur-xl border border-border rounded-3xl p-8 shadow-2xl"
-        >
+        {/* Center Line Chart */}
+        <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }}
+          className="bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8">
           <h3 className="text-2xl font-bold mb-6 text-primary">Reservations This Month</h3>
           <Line data={lineData} options={{
             plugins: { legend: { display: false } },
-            scales: { x: { grid: { color: 'rgba(156,163,175,0.08)' } }, y: { grid: { color: 'rgba(156,163,175,0.08)' } } },
-            animation: { duration: 2800 },
+            scales: { x: { grid: { color: 'rgba(156,163,175,0.1)' } }, y: { grid: { color: 'rgba(156,163,175,0.1)' } } },
           }} />
         </motion.div>
 
-        <div className="space-y-8">
-          <motion.div
-            initial={{ x: 100, opacity: 0 }}
-            animate={{ x: 0, opacity: 1 }}
-            transition={{ delay: 0.7 }}
-            className="bg-card/90 backdrop-blur-xl border border-border rounded-3xl p-8 shadow-2xl"
-          >
-            <h3 className="text-2xl font-bold mb-6 text-primary">Top Menu Items</h3>
-            <Bar data={menuData} options={{
-              indexAxis: 'y' as const,
-              plugins: { legend: { display: false } },
-              animation: { duration: 2000 },
-            }} />
+        {/* Right Column */}
+        <div className="space-y-6">
+          <motion.div initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.6 }}
+            className="bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8">
+            <h3 className="text-xl font-bold mb-6 text-primary">Top Menu Items</h3>
+            <Bar data={menuData} options={{ indexAxis: 'y' as const, plugins: { legend: { display: false } } }} />
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1 }}
-            className="bg-card/90 backdrop-blur-xl border border-border rounded-3xl p-8 shadow-2xl"
-          >
-            <h3 className="text-2xl font-bold mb-6 text-primary">Recent Bookings</h3>
-            <div className="space-y-5">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}
+            className="bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8">
+            <h3 className="text-xl font-bold mb-6 text-primary">Recent Bookings</h3>
+            <div className="space-y-4 text-sm">
               {[
                 { name: "Ahmed Al-Mansour", table: "VIP Booth", time: "8:30 PM", status: "Confirmed" },
                 { name: "Sara Khalid", table: "Terrace 4-Seater", time: "7:00 PM", status: "Confirmed" },
@@ -276,25 +163,16 @@ const StatisticsPage: React.FC = () => {
                 { name: "Mohammed Ali", table: "VIP Booth", time: "10:00 PM", status: "Confirmed" },
                 { name: "Fatima Zahra", table: "4-Seater", time: "8:00 PM", status: "Pending" },
               ].map((b, i) => (
-                <motion.div
-                  key={i}
-                  initial={{ x: 50, opacity: 0 }}
-                  animate={{ x: 0, opacity: 1 }}
-                  transition={{ delay: 1.1 + i * 0.1 }}
-                  whileHover={{ x: 10 }}
-                  className="flex justify-between items-center py-4 border-b border-border/30 last:border-0 group"
-                >
+                <div key={i} className="flex justify-between items-center py-3 border-b border-border last:border-0">
                   <div>
-                    <p className="font-semibold group-hover:text-orange-500 transition-colors">{b.name}</p>
-                    <p className="text-muted-foreground text-sm">{b.table}</p>
+                    <p className="font-medium text-foreground">{b.name}</p>
+                    <p className="text-muted-foreground text-xs">{b.table}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-primary font-bold">{b.time}</p>
-                    <p className={`text-sm ${b.status === 'Confirmed' ? 'text-green-400' : 'text-yellow-400'}`}>
-                      • {b.status}
-                    </p>
+                    <p className="text-primary font-medium">{b.time}</p>
+                    <p className={`text-xs ${b.status === 'Confirmed' ? 'text-green-400' : 'text-yellow-400'}`}>{b.status}</p>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
           </motion.div>
