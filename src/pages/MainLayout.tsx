@@ -12,10 +12,10 @@ const navItems: NavItem[] = [
 
 export default function MainLayout() {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <ThemeProvider  defaultTheme="dark" storageKey="vite-ui-theme">
       <div className="min-h-screen flex flex-col bg-background ">
         <Navbar items={navItems} />
-        <main className="flex-1 container mx-auto ">
+        <main className="flex-1 container mx-auto  bg-red-600">
           <Outlet />
         </main>
       </div>

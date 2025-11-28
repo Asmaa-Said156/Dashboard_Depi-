@@ -61,15 +61,15 @@ const filteredRows = row
 
 
   return (
-    <div className="">
+    <div className="mt-4 flex flex-col gap-4">
 
 
       
 
 
-      <Filter items={options} onChangeCombo={(value) => { setValue(value) }} onChangeInput={(e) => setSearch(e.target.value)} />
+      <Filter items={options}  onChangeCombo={(value) => { setValue(value) }} onChangeInput={(e) => setSearch(e.target.value)} />
 
-      <div className="max-h-[calc(100vh-130px)] overflow-y-auto mt-3">
+      <div className="max-h-[calc(100vh-130px)] overflow-y-auto ">
         <Table header={header} row={filteredRows} />
       </div>
 
