@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Line, Doughnut, Bar } from 'react-chartjs-2';
 import { format, subDays } from 'date-fns';
 import { motion } from 'framer-motion';
+
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -15,11 +16,27 @@ import {
   Legend,
 } from 'chart.js';
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, BarElement, ArcElement, Tooltip, Legend);
+// Register ChartJS
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  BarElement,
+  ArcElement,
+  Tooltip,
+  Legend
+);
 
 const StatisticsPage: React.FC = () => {
-  const [counts, setCounts] = useState({ reservations: 0, people: 0, revenue: 0, occupancy: 0 });
+  const [counts, setCounts] = useState({
+    reservations: 0,
+    people: 0,
+    revenue: 0,
+    occupancy: 0,
+  });
 
+  // Animated counters
   useEffect(() => {
     const targets = { reservations: 2847, people: 7682, revenue: 284750, occupancy: 84 };
     const duration = 2200;
@@ -44,8 +61,11 @@ const StatisticsPage: React.FC = () => {
     return () => clearInterval(timer);
   }, []);
 
+  // Line chart – last 30 days
   const lineData = {
-    labels: Array.from({ length: 30 }, (_, i) => format(subDays(new Date(), 29 - i), 'MMM d')),
+    labels: Array.from({ length: 30 }, (_, i) =>
+      format(subDays(new Date(), 29 - i), 'MMM d')
+    ),
     datasets: [
       {
         label: 'Reservations',
@@ -59,33 +79,53 @@ const StatisticsPage: React.FC = () => {
     ],
   };
 
+  // Doughnut – Table types
   const tableData = {
     labels: ['2-Seater', '4-Seater', '6-Seater', 'VIP Booth', 'Terrace'],
-    datasets: [{ data: [320,580,410,120,210], backgroundColor: ['#f97316','#fb923c','#fdba74','#fed7aa','#ffedd5'] }],
+    datasets: [
+      {
+        data: [320, 580, 410, 120, 210],
+        backgroundColor: ['#f97316', '#fb923c', '#fdba74', '#fed7aa', '#ffedd5'],
+        borderWidth: 0,
+      },
+    ],
   };
 
+  // Horizontal bar – Top menu items
   const menuData = {
     labels: ['Signature Steak','Lobster Risotto','Truffle Pasta','Tiramisu','Champagne','Cocktails','Wagyu'],
-    datasets: [{ label: 'Orders', data: [485,412,368,355,340,298,280], backgroundColor: '#f97316', borderRadius: 8 }],
+    datasets: [
+      {
+        label: 'Orders',
+        data: [485,412,368,355,340,298,280],
+        backgroundColor: '#f97316',
+        borderRadius: 8,
+        barThickness: 20,
+      },
+    ],
   };
 
   return (
     <div className="min-h-screen bg-background text-foreground p-6">
       {/* Header */}
-      <motion.div initial={{ y: -40, opacity: 0 }} animate={{ y: 0, opacity: 1 }} className="mb-8">
+      <motion.div
+        initial={{ y: -40, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        className="mb-8"
+      >
         <h1 className="text-4xl font-bold">Main Dashboard</h1>
         <p className="text-muted-foreground mt-2">Restaurant Statistics • November 2025</p>
       </motion.div>
 
-      {/* Top Small Cards */}
+      {/* Top small cards */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
         {[
-          { icon: "📊", label: "Total Reservations", value: "2,847" },
+          { icon:"📊", label: "Total Reservations", value: "2,847" },
           { icon: "💰", label: "Revenue", value: "$284.7K" },
-          { icon: "📈", label: "Growth", value: "+32%" },
-          { icon: "👥", label: "People Booked", value: "7,682" },
-          { icon: "🪑", label: "Tables Used", value: "1,640" },
-          { icon: "⭐", label: "Avg Rating", value: "4.9" },
+          { icon: "📈" , label: "Growth", value: "+32%" },
+          { icon: "👥" , label: "People Booked", value: "7,682" },
+          { icon: "🪑" , label: "Tables Used", value: "1,640" },
+          { icon:  "⭐", label: "Avg Rating", value: "4.9" },
         ].map((item, i) => (
           <motion.div
             key={i}
@@ -101,10 +141,11 @@ const StatisticsPage: React.FC = () => {
         ))}
       </div>
 
-      {/* Main Grid */}
+      {/* Main grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column */}
+        {/* Left column */}
         <div className="space-y-6">
+          {/* Big stats */}
           {[
             { label: "Total Reservations", value: counts.reservations, change: "+24%" },
             { label: "People Booked", value: counts.people, change: "+19%" },
@@ -122,37 +163,96 @@ const StatisticsPage: React.FC = () => {
               <p className={`text-5xl font-bold mt-3 ${stat.highlight ? 'text-primary' : 'text-foreground'}`}>
                 {stat.value}
               </p>
-              <p className="text-green-400 text-sm mt-4">↑ {stat.change}</p>
+              <p className="text-green-400 text-sm mt-4">Up {stat.change}</p>
             </motion.div>
           ))}
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.8 }}
-            className="bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8">
-            <h3 className="text-xl font-bold mb-6 text-primary">Table Types Distribution</h3>
-            <Doughnut data={tableData} options={{ cutout: '70%', plugins: { legend: { labels: { color: 'rgb(156 163 175)' } } } }} />
+          {/* Small beautiful doughnut */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.8 }}
+            className="bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8"
+          >
+            <h3 className="text-xl font-bold mb-8 text-primary text-center">
+              Table Types Distribution
+            </h3>
+
+            <div className="w-64 h-64 mx-auto">
+              <Doughnut
+                data={tableData}
+                options={{
+                  cutout: '78%',
+                  maintainAspectRatio: true,
+                  responsive: true,
+                  plugins: {
+                    legend: {
+                      position: 'bottom' as const,
+                      labels: {
+                        color: '#9ca3af',
+                        padding: 16,
+                        font: { size: 13 },
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                      },
+                    },
+                  },
+                }}
+              />
+            </div>
           </motion.div>
         </div>
 
-        {/* Center Line Chart */}
-        <motion.div initial={{ y: 50, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ delay: 0.4 }}
-          className="bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8">
+        {/* Center – Line chart */}
+        <motion.div
+          initial={{ y: 50, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8"
+        >
           <h3 className="text-2xl font-bold mb-6 text-primary">Reservations This Month</h3>
-          <Line data={lineData} options={{
-            plugins: { legend: { display: false } },
-            scales: { x: { grid: { color: 'rgba(156,163,175,0.1)' } }, y: { grid: { color: 'rgba(156,163,175,0.1)' } } },
-          }} />
+          <Line
+            data={lineData}
+            options={{
+              plugins: { legend: { display: false } },
+              scales: {
+                x: { grid: { color: 'rgba(156,163,175,0.1)' } },
+                y: { grid: { color: 'rgba(156,163,175,0.1)' }, beginAtZero: true },
+              },
+            }}
+          />
         </motion.div>
 
-        {/* Right Column */}
+        {/* Right column */}
         <div className="space-y-6">
-          <motion.div initial={{ x: 50, opacity: 0 }} animate={{ x: 0, opacity: 1 }} transition={{ delay: 0.6 }}
-            className="bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8">
+          {/* Top menu items */}
+          <motion.div
+            initial={{ x: 50, opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            transition={{ delay: 0.6 }}
+            className="bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8"
+          >
             <h3 className="text-xl font-bold mb-6 text-primary">Top Menu Items</h3>
-            <Bar data={menuData} options={{ indexAxis: 'y' as const, plugins: { legend: { display: false } } }} />
+            <Bar
+              data={menuData}
+              options={{
+                indexAxis: 'y' as const,
+                plugins: { legend: { display: false } },
+                scales: {
+                  x: { grid: { color: 'rgba(156,163,175,0.1)' }, beginAtZero: true },
+                  y: { grid: { display: false } },
+                },
+              }}
+            />
           </motion.div>
 
-          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }}
-            className="bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8">
+          {/* Recent bookings */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+            className="bg-card/80 backdrop-blur-xl border border-border rounded-3xl p-8"
+          >
             <h3 className="text-xl font-bold mb-6 text-primary">Recent Bookings</h3>
             <div className="space-y-4 text-sm">
               {[
@@ -163,14 +263,19 @@ const StatisticsPage: React.FC = () => {
                 { name: "Mohammed Ali", table: "VIP Booth", time: "10:00 PM", status: "Confirmed" },
                 { name: "Fatima Zahra", table: "4-Seater", time: "8:00 PM", status: "Pending" },
               ].map((b, i) => (
-                <div key={i} className="flex justify-between items-center py-3 border-b border-border last:border-0">
+                <div
+                  key={i}
+                  className="flex justify-between items-center py-3 border-b border-border last:border-0"
+                >
                   <div>
                     <p className="font-medium text-foreground">{b.name}</p>
                     <p className="text-muted-foreground text-xs">{b.table}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-primary font-medium">{b.time}</p>
-                    <p className={`text-xs ${b.status === 'Confirmed' ? 'text-green-400' : 'text-yellow-400'}`}>{b.status}</p>
+                    <p className={`text-xs ${b.status === 'Confirmed' ? 'text-green-400' : 'text-yellow-400'}`}>
+                      {b.status}
+                    </p>
                   </div>
                 </div>
               ))}
